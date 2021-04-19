@@ -1,0 +1,3 @@
+/home/kiryuha21/CLionProjects/clusters/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/kiryuha21/CLionProjects/clusters/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kiryuha21/CLionProjects/clusters/cmake-build-debug/CMakeFiles/clusters.dir

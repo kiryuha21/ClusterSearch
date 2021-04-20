@@ -1,6 +1,10 @@
 #include "Dbscan.h"
 
-Dbscan::Dbscan(field field) : field_for_search(move(field)) { }
+Dbscan::Dbscan(field& field) : field_for_search(field) { }
+
+void Dbscan::assign_field(field &field) {
+    this->field_for_search = field;
+}
 
 void Dbscan::find(const double EPS) {
     bool unchecked_points_exist = true;

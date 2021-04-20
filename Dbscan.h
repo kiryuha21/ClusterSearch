@@ -8,11 +8,15 @@ class Dbscan {
 private:
     field field_for_search;
     queue<point> points_queue;
-    void find_neighbours(point& start_point, const double EPS);
+    void find_neighbours(point& start_point, double EPS);
     int label_for_marking = 5;
 public:
-    Dbscan(field field);
+    Dbscan() = default;
 
-    void find(const double EPS);
+    void assign_field(field& field);
+
+    explicit Dbscan(field& field);
+
+    void find(double EPS);
 };
 

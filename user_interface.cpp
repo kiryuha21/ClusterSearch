@@ -238,3 +238,19 @@ void user_interface::create_field(const string filename) {
         cout << "enter new action (enter 3 to see the instruction)\n";
     }
 }
+
+void user_interface::find(const double EPS) {
+    int choice = enter_alg_name();
+    switch (choice) {
+        case 3: {
+            dbscan_find.assign_field(main_field);
+            dbscan_find.find(EPS);
+            break;
+        }
+        default: {
+            cout << "incorrect value or not realized";
+            break;
+        }
+    }
+
+}

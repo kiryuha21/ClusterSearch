@@ -7,6 +7,8 @@
 #include <set>
 #include <chrono>
 #include <random>
+#include <queue>
+#include <utility>
 
 using namespace std;
 

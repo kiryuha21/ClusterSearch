@@ -1,8 +1,6 @@
 #pragma once
 
 #include "field.h"
-#include <queue>
-#include <utility>
 
 class Dbscan {
 private:

@@ -1,4 +1,4 @@
-#include "field.h"
+#include "/home/kiryuha21/CLionProjects/clusters/include/field.h"
 
 field::field()
 {

@@ -1,4 +1,4 @@
-#include "Dbscan.h"
+#include "/home/kiryuha21/CLionProjects/clusters/include/Dbscan.h"
 
 Dbscan::Dbscan(field& field) : field_for_search(field) { }
 

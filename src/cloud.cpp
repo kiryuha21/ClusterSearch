@@ -1,4 +1,4 @@
-#include "cloud.h"
+#include "/home/kiryuha21/CLionProjects/clusters/include/cloud.h"
 
 cloud::cloud() : x_center(0), y_center(0)  {//default constructor
     cloud_data.resize(0);

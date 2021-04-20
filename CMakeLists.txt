@@ -3,4 +3,6 @@ project(clusters)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(clusters main.cpp point.cpp point.h cloud.cpp cloud.h field.cpp field.h user_interface.cpp user_interface.h Dbscan.cpp Dbscan.h)
+add_executable(clusters
+        src/main.cpp src/point.cpp src/cloud.cpp src/field.cpp src/user_interface.cpp src/Dbscan.cpp
+        include/point.h  include/cloud.h  include/field.h  include/user_interface.h  include/Dbscan.h)

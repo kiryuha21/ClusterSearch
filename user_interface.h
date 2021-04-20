@@ -1,9 +1,9 @@
 #pragma once
 
 #include "field.h"
+#include "Dbscan.h"
 
 #define OPEN_ERR (-2)
-#define POINTS_NUM_ERR (-3)
 
 class user_interface
 {

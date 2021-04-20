@@ -1,6 +1,7 @@
 #include "user_interface.h"
 
 int main() {
-    cout << "hello world";
+    user_interface iface;
+    iface.create_field();
     return 0;
 }

@@ -3,7 +3,7 @@
 int user_interface::enter_alg_name() {
     string input;
     cin >> input;
-    while (input != "1" and input != "2" and input != "3") {
+    while (input < "1" and input > "5") {
         cout << "Incorrect input, enter valid algorithm number";
         cin >> input;
     }
@@ -224,7 +224,7 @@ void user_interface::create_field(const string filename) {
             cout << instruction;
         }
         else if (output_choice == "-1") {
-            cout << "work with field finished\n";
+            cout << "*work with field finished*\n";
             break;
         }
         else {
@@ -254,6 +254,7 @@ void user_interface::find(const double EPS) {
                 main_field.set_label(0);
                 dbscan_find.assign_field(main_field);
                 dbscan_find.find(EPS);
+                cout << "clusters found!\n";
                 break;
             }
             case 4: {
@@ -268,7 +269,7 @@ void user_interface::find(const double EPS) {
                 break;
             }
         }
-        cout << "Enter new action";
+        cout << "Enter new action (enter 4 to see the instructions) \n";
         choice = enter_alg_name();
     }
 

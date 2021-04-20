@@ -19,6 +19,6 @@ public:
 
     void show_field();
 
-    vector <point> get_cloud_arr();
+    vector<point>& get_cloud_arr();
 };
 

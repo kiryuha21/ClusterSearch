@@ -22,7 +22,7 @@ void field::show_field() {
     }
 }
 
-vector <point> field::get_cloud_arr() {
+vector<point>& field::get_cloud_arr() {
     return cloud_arr;
 }
 

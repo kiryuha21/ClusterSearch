@@ -27,7 +27,7 @@ void user_interface::cloud_actions(cloud & cloud) {
     bool cloud_not_exist = cloud.is_empty();
     int action_num = -1;
     while (true) {
-        cout << "enter new action\n";
+        cout << "enter new action (enter 6 to see action list)\n";
         cin >> input;
         action_num = stoi(input);
         if (action_num < 1 or action_num > 7 or input.size() != 1 or (cloud_not_exist and action_num != 1 and action_num != 7)) {

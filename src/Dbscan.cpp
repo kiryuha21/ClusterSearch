@@ -6,7 +6,7 @@ void Dbscan::assign_field(field &field) {
     this->field_for_search = field.get_cloud_arr();
 }
 
-void Dbscan::find(double EPS) {
+void Dbscan::find(double EPS, const size_t cluster_min_size) {
     bool unchecked_points_exist = true;
     while (unchecked_points_exist) {
         for (point& i : field_for_search) {
@@ -27,11 +27,13 @@ void Dbscan::find(double EPS) {
                             j.set_label(label_for_marking);
                         }
                     }
+                    label_set.insert(label_for_marking);
                     ++label_for_marking;
                 }
             }
         }
     }
+    destroy_little_clusters(cluster_min_size);
 }
 
 void Dbscan::find_neighbours(point& start_point, const double EPS) {
@@ -46,5 +48,30 @@ void Dbscan::find_neighbours(point& start_point, const double EPS) {
                 points_queue.push(i);
             }
         }
+    }
+}
+
+void Dbscan::destroy_little_clusters(const int cluster_min_size) {
+    for (int i : label_set) {
+        size_t count = 0;
+        for (const point& j : field_for_search) {
+            if (j.get_label() == i) {
+                ++count;
+            }
+            if (count == cluster_min_size) {
+                for (const point& k : field_for_search) {
+                    if (k.get_label() == i) {
+                        final_field.push_back(k);
+                    }
+                }
+                break;
+            }
+        }
+    }
+}
+
+void Dbscan::show_final_field() {
+    for (const point& i : final_field) {
+        cout << i.get_x() << "\t" << i.get_y() << "\t" << i.get_label() << endl;
     }
 }

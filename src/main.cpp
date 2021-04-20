@@ -15,7 +15,7 @@ int main() {
         cout << "Enter file's name\n";
         string file_name;
         cin >> file_name;
-        cout << "*beginning of a work with field*";
+        cout << "*beginning of a work with field*\n";
         try {
             iface.create_field(file_name);
         }
@@ -24,7 +24,7 @@ int main() {
             return OPEN_ERR;
         }
     }
-    iface.find(1);
-    cout << "end of the programm\n";
+    iface.find();
+    cout << "end of the program\n";
     return 0;
 }

@@ -18,6 +18,6 @@ public:
     void cloud_actions(cloud & cloud);
     void create_field_manually();
     void create_field(string filename = "");
-    void find(double EPS);
+    void find();
 };
 

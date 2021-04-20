@@ -1,4 +1,4 @@
-#include "/home/kiryuha21/CLionProjects/clusters/include/point.h"
+#include "../include/point.h"
 
 point::point() : x_coord(0), y_coord(0), label(0) {} // default contructor
 

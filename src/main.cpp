@@ -1,4 +1,4 @@
-#include "/home/kiryuha21/CLionProjects/clusters/include/user_interface.h"
+#include "../include/user_interface.h"
 
 int main() {
     user_interface iface;

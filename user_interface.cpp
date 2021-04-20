@@ -3,7 +3,7 @@
 int user_interface::enter_alg_name() {
     string input;
     while (true) {
-        cout << "Введите цифру для выбора алгоритма:\n1 - Forel\n2 - Sptr\n3- Dbscan";
+        cout << "Введите цифру для выбора алгоритма:\n1 - Forel\n2 - Sptr\n3- Dbscan\n";
         cin >> input;
         int alg_num = stoi(input);
         if (alg_num != 1 and alg_num != 2 and alg_num != 3 and input.size() != 1) {

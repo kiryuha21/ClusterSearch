@@ -26,6 +26,12 @@ vector <point> field::get_cloud_arr() {
     return cloud_arr;
 }
 
+void field::set_label(const int label) {
+    for (point i : cloud_arr) {
+        i.set_label(label);
+    }
+}
+
 void field::read_from_file(ifstream& fs) {
     vector <point> temp;
     double x, y;

@@ -9,6 +9,8 @@ private:
 public:
     explicit field();
 
+    void set_label(int label);
+
     void add_cloud(cloud& to_add);
 
     void read_from_file(ifstream& fs);

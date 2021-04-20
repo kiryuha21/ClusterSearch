@@ -2,12 +2,26 @@
 
 int main() {
     user_interface iface;
-    try {
-        iface.create_field("main_output.txt");
+    string action;
+    cout << "Enter way of creating field [manually / file]\n";
+    cin >> action;
+    while (action != "manually" and action != "file") {
+        cout << "Enter correct way of creating field [manually / file]\n";
+        cin >> action;
     }
-    catch (const int& ex) {
-        cout << "File open error\n";
-        return OPEN_ERR;
+    if (action == "manually") {
+        iface.create_field();
+    } else {
+        cout << "Enter file's name\n";
+        string file_name;
+        cin >> file_name;
+        try {
+            iface.create_field(file_name);
+        }
+        catch (const int& ex) {
+            cout << "File open error\n";
+            return OPEN_ERR;
+        }
     }
     iface.find(1);
     return 0;

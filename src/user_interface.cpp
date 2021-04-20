@@ -2,17 +2,12 @@
 
 int user_interface::enter_alg_name() {
     string input;
-    while (true) {
-        cout << "Enter algorithm number:\n1 - Forel\n2 - Sptr\n3- Dbscan\n";
+    cin >> input;
+    while (input != "1" and input != "2" and input != "3") {
+        cout << "Incorrect input, enter valid algorithm number";
         cin >> input;
-        int alg_num = stoi(input);
-        if (alg_num != 1 and alg_num != 2 and alg_num != 3 and input.size() != 1) {
-            cout << "Incorrect input, enter valid algorithm number";
-        }
-        else {
-            return alg_num;
-        }
     }
+    return stoi(input);
 }
 
 bool user_interface::correct_positive_num_value(string value) {
@@ -240,17 +235,41 @@ void user_interface::create_field(const string filename) {
 }
 
 void user_interface::find(const double EPS) {
+    const string instruction = "Enter algorithm number:\n1 for Forel\n2 for SPtr\n3 for Dbscan\nAnother actions:\nEnter 4 to see the instruction\nEnter 5 to finish finding clusters\n";
+    cout << instruction;
     int choice = enter_alg_name();
-    switch (choice) {
-        case 3: {
-            dbscan_find.assign_field(main_field);
-            dbscan_find.find(EPS);
-            break;
+    while (choice != 5) {
+        switch (choice) {
+            case 1: {
+                cout << "not made yet\n";
+                //main_field.set_label(0);
+                break;
+            }
+            case 2: {
+                cout << "not made yet\n";
+                //main_field.set_label(0);
+                break;
+            }
+            case 3: {
+                main_field.set_label(0);
+                dbscan_find.assign_field(main_field);
+                dbscan_find.find(EPS);
+                break;
+            }
+            case 4: {
+                cout << instruction;
+                break;
+            }
+            case 5: {
+                break;
+            }
+            default: {
+                cout << "incorrect value\n";
+                break;
+            }
         }
-        default: {
-            cout << "incorrect value or not realized";
-            break;
-        }
+        cout << "Enter new action";
+        choice = enter_alg_name();
     }
 
 }

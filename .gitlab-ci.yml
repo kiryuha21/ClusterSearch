@@ -6,6 +6,8 @@ before_script:
 
 stages:
   - build
+  - Dbscan_test
+  - Dbscan_memory_test
 
 build:
   stage: build
@@ -17,3 +19,15 @@ build:
   artifacts:
     paths:
       - "build"
+
+Dbscan_test:
+  stage: Dbscan_test
+  script:
+    - cd build
+    - ../tests/run.sh ./clusters
+
+Dbscan_memory_test:
+  stage: Dbscan_memory_test
+  script:
+    - apt-get update && apt-get install -y valgrind
+    - ../tests/run.sh ./clusters --memcheck

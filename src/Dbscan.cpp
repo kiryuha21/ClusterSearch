@@ -6,7 +6,7 @@ void Dbscan::assign_field(field &field) {
     this->field_for_search = field.get_cloud_arr();
 }
 
-void Dbscan::find(double EPS, const size_t cluster_min_size) {
+void Dbscan::find(double EPS, const int cluster_min_size) {
     bool unchecked_points_exist = true;
     while (unchecked_points_exist) {
         for (point& i : field_for_search) {

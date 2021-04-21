@@ -18,7 +18,7 @@ public:
 
     explicit Dbscan(field& field);
 
-    void find(double EPS, size_t cluster_min_size);
+    void find(double EPS, int cluster_min_size);
 
     void show_final_field();
 };

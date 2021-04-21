@@ -39,6 +39,7 @@ void Dbscan::write_to_final_field(int cluster_min_size) {
             for (point& i : field_for_search) {
                 if (i.get_label() == 2) {
                     i.set_label(label_for_marking);
+                    final_field.push_back(i);
                 }
             }
             ++label_for_marking;
@@ -75,6 +76,6 @@ void Dbscan::show_final_field() {
     }
 }
 
-vector<point> Dbscan::get_final_field() {
+vector<point>& Dbscan::get_final_field() {
     return final_field;
 }

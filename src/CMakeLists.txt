@@ -8,4 +8,6 @@ add_executable(
         field.cpp
         user_interface.cpp
         Dbscan.cpp
+        Forel.cpp
+        Sptr.cpp
 )

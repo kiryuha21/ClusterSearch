@@ -234,15 +234,52 @@ void user_interface::create_field(const string filename) {
     }
 }
 
+void user_interface::enter_alg_variables(double& EPS, size_t& cluster_min_size) {
+    cout << "enter EPS\n";
+    string EPS_s;
+    bool valid_input = false;
+    while (!valid_input) {
+        valid_input = true;
+        cin >> EPS_s;
+        try {
+            EPS = stod(EPS_s);
+        }
+        catch (invalid_argument&) {
+            cout << "invalid argument, try again\n";
+            valid_input = false;
+        }
+    }
+    cout << "enter minimum points' amount in cluster\n";
+    string min_points_s;
+    valid_input = false;
+    while (!valid_input) {
+        valid_input = true;
+        cin >> min_points_s;
+        try {
+            cluster_min_size = stoi(min_points_s);
+        }
+        catch (invalid_argument&) {
+            cout << "invalid argument, try again\n";
+            valid_input = false;
+        }
+    }
+}
+
 void user_interface::find() {
     const string instruction = "Enter algorithm number:\n1 for Forel\n2 for SPtr\n3 for Dbscan\nAnother actions:\nEnter 4 to see the instruction\nEnter 5 to show final field\nEnter 6 to finish finding clusters\n";
     cout << instruction;
     int choice = enter_alg_name();
+    size_t cluster_min_size;
+    double EPS;
     while (choice != 6) {
         switch (choice) {
             case 1: {
-                cout << "not made yet\n";
-                //main_field.set_label(0);
+                main_field.set_label(0);
+                enter_alg_variables(EPS, cluster_min_size);
+                Forel forel_find(main_field);
+                forel_find.find(EPS, cluster_min_size);
+                main_field.get_cloud_arr() = forel_find.get_final_field();
+                cout << "clusters found!\n";
                 break;
             }
             case 2: {
@@ -251,39 +288,10 @@ void user_interface::find() {
                 break;
             }
             case 3: {
-                cout << "enter EPS for Dbscan\n";
-                string EPS_s;
-                double EPS;
-                bool valid_input = false;
-                while (!valid_input) {
-                    valid_input = true;
-                    cin >> EPS_s;
-                    try {
-                        EPS = stod(EPS_s);
-                    }
-                    catch (invalid_argument&) {
-                        cout << "invalid argument, try again\n";
-                        valid_input = false;
-                    }
-                }
-                cout << "enter minimum points' amount in cluster\n";
-                string min_points_s;
-                int min_points;
-                valid_input = false;
-                while (!valid_input) {
-                    valid_input = true;
-                    cin >> min_points_s;
-                    try {
-                        min_points = stoi(min_points_s);
-                    }
-                    catch (invalid_argument&) {
-                        cout << "invalid argument, try again\n";
-                        valid_input = false;
-                    }
-                }
+                enter_alg_variables(EPS, cluster_min_size);
                 main_field.set_label(0);
                 Dbscan dbscan_find(main_field);
-                dbscan_find.find(EPS, min_points);
+                dbscan_find.find(EPS, cluster_min_size);
                 main_field.get_cloud_arr() = dbscan_find.get_final_field();
                 cout << "clusters found!\n";
                 break;

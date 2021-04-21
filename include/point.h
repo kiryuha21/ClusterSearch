@@ -40,5 +40,9 @@ public:
     void add_x(double x);
 
     void add_y(double y);
+
+    bool operator==(point point);
+
+    bool operator!=(point point);
 };
 

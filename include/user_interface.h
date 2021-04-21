@@ -2,6 +2,7 @@
 
 #include "field.h"
 #include "Dbscan.h"
+#include "Forel.h"
 
 #define OPEN_ERR (-2)
 
@@ -18,5 +19,6 @@ public:
     void create_field_manually();
     void create_field(string filename = "");
     void find();
+    void enter_alg_variables(double& EPS, size_t& cluster_min_size);
 };
 

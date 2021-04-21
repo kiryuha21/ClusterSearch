@@ -43,3 +43,11 @@ void point::add_x(double x) {//move X coordinate
 void point::add_y(double y) {//move Y coordinate
     this->y_coord += y;
 }
+
+bool point::operator==(point point) {
+    return this->x_coord == point.x_coord && this->y_coord == point.y_coord && this->label == point.label;
+}
+
+bool point::operator!=(point point) {
+    return !(*this == point);
+}

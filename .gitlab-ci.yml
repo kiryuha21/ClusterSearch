@@ -23,10 +23,10 @@ build:
 Dbscan_test:
   stage: Dbscan_test
   script:
-    - ../tests/run.sh ./src/clusters
+    - ./tests/run.sh ./build/src/clusters
 
 Dbscan_memory_test:
   stage: Dbscan_memory_test
   script:
     - apt-get update && apt-get install -y valgrind
-    - ../tests/run.sh ./src/clusters --memcheck
+    - ./tests/run.sh ./build/src/clusters --memcheck

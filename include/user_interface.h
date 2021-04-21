@@ -10,7 +10,6 @@ class user_interface
 private:
     field main_field;
     const set <int> numbers_set = { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46 };
-    Dbscan dbscan_find;
     static int enter_alg_name();
 public:
     user_interface() = default;

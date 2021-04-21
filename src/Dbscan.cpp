@@ -22,18 +22,36 @@ void Dbscan::find(double EPS, const int cluster_min_size) {
                         points_queue.pop();
                         find_neighbours(temp, EPS);
                     }
-                    for (point& j : field_for_search) {
-                        if (j.get_label() == 2) {
-                            j.set_label(label_for_marking);
-                        }
-                    }
-                    label_set.insert(label_for_marking);
-                    ++label_for_marking;
+                    write_to_final_field(cluster_min_size);
                 }
             }
         }
     }
-    destroy_little_clusters(cluster_min_size);
+}
+
+void Dbscan::write_to_final_field(int cluster_min_size) {
+    size_t count = 0;
+    for (point& j : field_for_search) {
+        if (j.get_label() == 2) {
+            ++count;
+        }
+        if (count == cluster_min_size) {
+            for (point& i : field_for_search) {
+                if (i.get_label() == 2) {
+                    i.set_label(label_for_marking);
+                }
+            }
+            ++label_for_marking;
+            break;
+        }
+    }
+    if (count < cluster_min_size) {
+        for (point& i : field_for_search) {
+            if (i.get_label() == 2) {
+                i.set_label(-1);
+            }
+        }
+    }
 }
 
 void Dbscan::find_neighbours(point& start_point, const double EPS) {
@@ -51,27 +69,12 @@ void Dbscan::find_neighbours(point& start_point, const double EPS) {
     }
 }
 
-void Dbscan::destroy_little_clusters(const int cluster_min_size) {
-    for (int i : label_set) {
-        size_t count = 0;
-        for (const point& j : field_for_search) {
-            if (j.get_label() == i) {
-                ++count;
-            }
-            if (count == cluster_min_size) {
-                for (const point& k : field_for_search) {
-                    if (k.get_label() == i) {
-                        final_field.push_back(k);
-                    }
-                }
-                break;
-            }
-        }
-    }
-}
-
 void Dbscan::show_final_field() {
     for (const point& i : final_field) {
         cout << i.get_x() << "\t" << i.get_y() << "\t" << i.get_label() << endl;
     }
+}
+
+vector<point> Dbscan::get_final_field() {
+    return final_field;
 }

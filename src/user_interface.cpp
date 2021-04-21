@@ -282,8 +282,9 @@ void user_interface::find() {
                     }
                 }
                 main_field.set_label(0);
-                dbscan_find.assign_field(main_field);
+                Dbscan dbscan_find(main_field);
                 dbscan_find.find(EPS, min_points);
+                main_field.get_cloud_arr() = dbscan_find.get_final_field();
                 cout << "clusters found!\n";
                 break;
             }
@@ -292,7 +293,7 @@ void user_interface::find() {
                 break;
             }
             case 5: {
-                dbscan_find.show_final_field();
+                main_field.show_field();
                 break;
             }
             case 6: {

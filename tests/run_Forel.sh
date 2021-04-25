@@ -2,8 +2,7 @@
 
 PROG_PATH=${1}
 
-IN1="
-manually
+IN1="manually
 1
 1
 100
@@ -22,8 +21,7 @@ main_output.txt
 6
 "
 
-IN2="
-file
+IN2="file
 main_output.txt
 -1
 1

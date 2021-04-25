@@ -7,9 +7,7 @@ before_script:
 stages:
   - build
   - Dbscan_test
-  - Dbscan_memory_test
   - Forel_test
-  - Forel_memory_test
 
 build:
   stage: build
@@ -26,20 +24,24 @@ Dbscan_test:
   stage: Dbscan_test
   script:
     - ./tests/run_Dbscan.sh ./build/src/clusters
+  when: manual
 
 Dbscan_memory_test:
-  stage: Dbscan_memory_test
+  stage: Dbscan_test
   script:
     - apt-get update && apt-get install -y valgrind
     - ./tests/run_Dbscan.sh ./build/src/clusters --memcheck
+  when: manual
 
 Forel_test:
   stage: Forel_test
   script:
     - ./tests/run_Forel.sh ./build/src/clusters
+  when: manual
 
 Forel_memory_test:
-  stage: Forel_memory_test
+  stage: Forel_test
   script:
     - apt-get update && apt-get install -y valgrind
     - ./tests/run_Forel.sh ./build/src/clusters --memcheck
+  when: manual

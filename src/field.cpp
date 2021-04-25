@@ -45,7 +45,7 @@ void field::read_from_file(ifstream& fs) {
 }
 
 void field::write_to_file(ofstream& fs) {
-    for (point i : this->cloud_arr) {
+    for (const point& i : this->cloud_arr) {
         fs << i.get_x() << " " << i.get_y() << " " << i.get_label() << endl;
     }
 }

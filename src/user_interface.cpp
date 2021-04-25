@@ -191,12 +191,12 @@ void user_interface::create_field(const string filename) {
     if (filename != "") {
         ifstream fs(filename);
         if (!fs.is_open()) {
-            throw OPEN_ERR;
+            throw (ifstream::failure("file opening error"));
         }
+        cout << "*beginning of a work with field*\n";
         main_field.read_from_file(fs);
         fs.close();
-    }
-    else {
+    } else {
         create_field_manually();
     }
     cout << "field created\n";

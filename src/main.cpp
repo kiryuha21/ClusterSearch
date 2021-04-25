@@ -11,16 +11,16 @@ int main() {
     }
     if (action == "manually") {
         iface.create_field();
-    } else {
+    }
+    if (action == "file") {
         cout << "Enter file's name\n";
         string file_name;
         cin >> file_name;
-        cout << "*beginning of a work with field*\n";
         try {
             iface.create_field(file_name);
         }
-        catch (const int& ex) {
-            cout << "File open error\n";
+        catch (ifstream::failure& ex) {
+            cout << ex.what() << endl;
             return OPEN_ERR;
         }
     }

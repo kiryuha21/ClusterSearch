@@ -18,8 +18,7 @@ main_output.txt
 3
 3
 3
-6
-"
+6"
 
 IN2="file
 main_output.txt
@@ -27,8 +26,7 @@ main_output.txt
 3
 3
 3
-6
-"
+6"
 
 echo "${IN1}" | eval "${PROG_PATH}"
 

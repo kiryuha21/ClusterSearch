@@ -36,7 +36,8 @@ void field::read_from_file(ifstream& fs) {
     vector <point> temp;
     double x, y;
     int label;
-    while (fs >> x >> y >> label) {
+    while (!fs.eof()) {
+        fs >> x >> y >> label;
         point temp_point(x, y, label);
         temp.push_back(temp_point);
     }
@@ -45,7 +46,12 @@ void field::read_from_file(ifstream& fs) {
 }
 
 void field::write_to_file(ofstream& fs) {
-    for (const point& i : this->cloud_arr) {
-        fs << i.get_x() << " " << i.get_y() << " " << i.get_label() << endl;
+    size_t cloud_arr_size = cloud_arr.size();
+    for (size_t i = 0; i < cloud_arr_size; ++i) {
+        if (i == cloud_arr_size - 1) {
+            fs << cloud_arr[i].get_x() << " " << cloud_arr[i].get_y() << " " << cloud_arr[i].get_label();
+        } else {
+            fs << cloud_arr[i].get_x() << " " << cloud_arr[i].get_y() << " " << cloud_arr[i].get_label() << endl;
+        }
     }
 }

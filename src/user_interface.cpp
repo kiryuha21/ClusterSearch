@@ -189,13 +189,16 @@ void user_interface::create_field_manually() {
 
 void user_interface::create_field(const string filename) {
     if (filename != "") {
-        ifstream fs(filename);
-        if (!fs.is_open()) {
-            throw (ifstream::failure("file opening error"));
+        try {
+            ifstream fs(filename);
+            fs.exceptions(std::ifstream::failbit);
+            cout << "*beginning of a work with field*\n";
+            main_field.read_from_file(fs);
+            fs.close();
         }
-        cout << "*beginning of a work with field*\n";
-        main_field.read_from_file(fs);
-        fs.close();
+        catch (ifstream::failure&) {
+            throw ifstream::failure("problem while opening or reading file");
+        }
     } else {
         create_field_manually();
     }

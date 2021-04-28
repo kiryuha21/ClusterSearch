@@ -47,11 +47,8 @@ void field::read_from_file(ifstream& fs) {
 
 void field::write_to_file(ofstream& fs) {
     size_t cloud_arr_size = cloud_arr.size();
-    for (size_t i = 0; i < cloud_arr_size; ++i) {
-        if (i == cloud_arr_size - 1) {
-            fs << cloud_arr[i].get_x() << " " << cloud_arr[i].get_y() << " " << cloud_arr[i].get_label();
-        } else {
-            fs << cloud_arr[i].get_x() << " " << cloud_arr[i].get_y() << " " << cloud_arr[i].get_label() << endl;
-        }
+    for (size_t i = 0; i < cloud_arr_size - 1; ++i) {
+        fs << cloud_arr[i].get_x() << " " << cloud_arr[i].get_y() << " " << cloud_arr[i].get_label() << endl;
     }
+    fs << cloud_arr[cloud_arr_size - 1].get_x() << " " << cloud_arr[cloud_arr_size - 1].get_y() << " " << cloud_arr[cloud_arr_size - 1].get_label();
 }

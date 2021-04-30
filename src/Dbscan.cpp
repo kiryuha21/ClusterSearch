@@ -70,12 +70,6 @@ void Dbscan::find_neighbours(point& start_point, const double EPS) {
     }
 }
 
-void Dbscan::show_final_field() {
-    for (const point& i : final_field) {
-        cout << i.get_x() << "\t" << i.get_y() << "\t" << i.get_label() << endl;
-    }
-}
-
 vector<point>& Dbscan::get_final_field() {
     return final_field;
 }

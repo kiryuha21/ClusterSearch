@@ -20,7 +20,5 @@ public:
     vector<point>& get_final_field();
 
     void find(double EPS, int cluster_min_size);
-
-    void show_final_field();
 };
 

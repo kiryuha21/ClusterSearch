@@ -3,6 +3,7 @@
 #include "field.h"
 #include "Dbscan.h"
 #include "Forel.h"
+#include "Sptr.h"
 
 #define OPEN_ERR (-2)
 

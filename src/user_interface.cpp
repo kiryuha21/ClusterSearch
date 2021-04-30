@@ -286,8 +286,12 @@ void user_interface::find() {
                 break;
             }
             case 2: {
-                cout << "not made yet\n";
-                //main_field.set_label(0);
+                enter_alg_variables(EPS, cluster_min_size);
+                main_field.set_label(0);
+                Sptr sptr_find(main_field);
+                sptr_find.find(EPS, cluster_min_size);
+                main_field.get_cloud_arr() = sptr_find.get_final_field();
+                cout << "clusters found!\n";
                 break;
             }
             case 3: {

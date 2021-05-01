@@ -37,31 +37,31 @@ void cloud::fill_cloud(int points_count, double x_start, double x_end, double y_
     }
 }
 
-void cloud::move_x(double delta_x) {
-    for (point i : cloud_data) {
+void cloud::move_x(const double delta_x) {
+    for (point& i : cloud_data) {
         i.add_x(delta_x);
     }
 }
 
-void cloud::move_y(double delta_y) {
-    for (point i : cloud_data) {
+void cloud::move_y(const double delta_y) {
+    for (point& i : cloud_data) {
         i.add_y(delta_y);
     }
 }
 
-void cloud::angle_cloud_center_turn(double angle) {
-    for (point i : cloud_data) {
-        double new_x = x_center + cos(angle) * (i.get_x() - x_center) - sin(angle) * (i.get_y() - y_center);
-        double new_y = y_center + sin(angle) * (i.get_x() - x_center) - cos(angle) * (i.get_y() - y_center);
+void cloud::angle_cloud_center_turn(const double angle) {
+    for (point& i : cloud_data) {
+        double new_x = x_center + cos(angle * 180 / M_PI) * (i.get_x() - x_center) - sin(angle * 180 / M_PI) * (i.get_y() - y_center);
+        double new_y = y_center + sin(angle * 180 / M_PI) * (i.get_x() - x_center) - cos(angle * 180 / M_PI) * (i.get_y() - y_center);
         i.set_x(new_x);
         i.set_y(new_y);
     }
 }
 
-void cloud::angle_start_point_turn(double angle) {
-    for (point i : cloud_data) {
-        double new_x = cos(angle) * (i.get_x()) - sin(angle) * (i.get_y());
-        double new_y = sin(angle) * (i.get_x()) - cos(angle) * (i.get_y());
+void cloud::angle_start_point_turn(const double angle) {
+    for (point& i : cloud_data) {
+        double new_x = cos(angle * 180 / M_PI) * (i.get_x()) - sin(angle * 180 / M_PI) * (i.get_y());
+        double new_y = sin(angle * 180 / M_PI) * (i.get_x()) - cos(angle * 180 / M_PI) * (i.get_y());
         i.set_x(new_x);
         i.set_y(new_y);
     }

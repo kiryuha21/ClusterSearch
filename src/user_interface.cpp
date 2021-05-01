@@ -349,4 +349,5 @@ void user_interface::make_plot_file() {
     for (const point& i : main_field_points) {
         fs << i.get_x() << " " << i.get_y() << " " << colors[i.get_label() - 5] << endl;
     }
+    fs.close();
 }

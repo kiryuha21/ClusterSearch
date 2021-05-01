@@ -16,7 +16,7 @@ IN1="manually
 main_output.txt
 -1
 1
-3
+10
 3
 6"
 
@@ -24,7 +24,7 @@ IN2="file
 main_output.txt
 -1
 1
-3
+10
 3
 6"
 

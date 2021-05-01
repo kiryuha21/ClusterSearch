@@ -8,6 +8,7 @@ stages:
   - build
   - Dbscan_test
   - Forel_test
+  - Sptr_test
 
 build:
   stage: build
@@ -44,4 +45,17 @@ Forel_memory_test:
   script:
     - apt-get update && apt-get install -y valgrind
     - ./tests/run_Forel.sh ./build/src/clusters --memcheck
+  when: manual
+
+Sptr_test:
+  stage: Sptr_test
+  script:
+    - ./tests/run_Sptr.sh ,/build/src/clusters
+  when: manual
+
+Sptr_memory_test:
+  stage: Sptr_test
+  script:
+    - apt-get update && apt-get install -y valgrind
+    - ./tests/run_Sptr.sh ,/build/src/clusters --memcheck
   when: manual

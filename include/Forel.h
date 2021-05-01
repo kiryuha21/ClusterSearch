@@ -12,6 +12,8 @@ private:
     int find_neighbours_count(const point& start_point, double EPS);
     void find_cluster(double EPS);
     void write_and_erase_cluster(size_t cluster_min_size);
+    void find_with_narrow(double EPS);
+    point find_mass_center();
 public:
     Forel() = default;
 

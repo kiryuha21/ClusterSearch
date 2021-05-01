@@ -4,9 +4,21 @@ Forel::Forel(field &field) : field_for_search(field.get_cloud_arr()) { }
 
 void Forel::find(const double EPS, const size_t cluster_min_size) {
     while (!field_for_search.empty()) {
-        find_cluster(EPS);
+        find_with_narrow(EPS);
         write_and_erase_cluster(cluster_min_size);
     }
+}
+
+void Forel::find_with_narrow(double EPS) {
+    find_cluster(EPS);
+    point center;
+    point new_center  = find_mass_center();
+    do {
+        center = new_center;
+        EPS *= 0.95;
+        find_cluster(EPS);
+        new_center = find_mass_center();
+    } while (center != new_center);
 }
 
 void Forel::find_cluster(const double EPS) {
@@ -18,6 +30,17 @@ void Forel::find_cluster(const double EPS) {
             cluster_indexes = last_neighbours_indexes;
         }
     }
+}
+
+point Forel::find_mass_center() {
+    point center;
+    for (const auto& i : cluster_indexes) {
+        center.add_x(field_for_search[i].get_x());
+        center.add_y(field_for_search[i].get_y());
+    }
+    center.set_x(center.get_x() / (double)cluster_indexes.size());
+    center.set_y(center.get_y() / (double)cluster_indexes.size());
+    return center;
 }
 
 int Forel::find_neighbours_count(const point& start_point, const double EPS) {

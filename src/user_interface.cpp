@@ -3,7 +3,7 @@
 int user_interface::enter_alg_name() {
     string input;
     cin >> input;
-    while (input < "1" and input > "6") {
+    while (input < "1" and input > "7") {
         cout << "Incorrect input, enter valid algorithm number";
         cin >> input;
     }
@@ -44,6 +44,7 @@ void user_interface::cloud_actions(cloud & cloud) {
             continue;
         }
         if (action_num == 7) {
+            cout << "end of work with cloud\n";
             break;
         }
         else {
@@ -156,10 +157,6 @@ void user_interface::cloud_actions(cloud & cloud) {
                     cout << action_list;
                     break;
                 }
-                case 7: {
-                    cout << "end of work with cloud";
-                    break;
-                }
                 default: {
                     cout << "this shouldn't happen...\n";
                     break;
@@ -182,30 +179,29 @@ void user_interface::create_field_manually() {
             continue;
         }
         if (action_num == 2) {
+            cout << "end of cloud input\n";
             break;
         }
-        switch (action_num) {
-            case 1: {
-                cloud new_cloud;
-                cloud_actions(new_cloud);
-                main_field.add_cloud(new_cloud);
-                break;
-            }
-            case 2: {
-                cout << "end of cloud input";
-                break;
-            }
-            default: {
-                cout << "this shouldn't happen...\n";
-                break;
-            }
-        }
+        cloud new_cloud;
+        cloud_actions(new_cloud);
+        main_field.add_cloud(new_cloud);
         cout << "enter new action\n";
     }
 }
 
+void user_interface::write_down_main_field() {
+    cout << "Enter file's name\n";
+    string output_file;
+    cin >> output_file;
+    ofstream fs(output_file);
+    fs.exceptions(std::ifstream::failbit);
+    this->main_field.write_to_file(fs);
+    cout << "field successfully wrote to file\n";
+    fs.close();
+}
+
 void user_interface::create_field(const string& filename) {
-    if (filename.empty()) {
+    if (!filename.empty()) {
         try {
             ifstream fs(filename);
             fs.exceptions(std::ifstream::failbit);
@@ -229,14 +225,7 @@ void user_interface::create_field(const string& filename) {
             main_field.show_field();
         }
         else if (output_choice == "2") {
-            cout << "Enter file's name\n";
-            string output_file;
-            cin >> output_file;
-            ofstream fs(output_file);
-            fs.exceptions(std::ifstream::failbit);
-            this->main_field.write_to_file(fs);
-            cout << "field successfully wrote to file\n";
-            fs.close();
+            write_down_main_field();
         }
         else if (output_choice == "3") {
             cout << instruction;
@@ -284,12 +273,12 @@ void user_interface::enter_alg_variables(double& EPS, size_t& cluster_min_size) 
 }
 
 void user_interface::find() {
-    const string instruction = "Enter algorithm number:\n1 for Forel\n2 for SPtr\n3 for Dbscan\nAnother actions:\nEnter 4 to see the instruction\nEnter 5 to show final field\nEnter 6 to finish finding clusters\n";
+    const string instruction = "Enter algorithm number:\n1 for Forel\n2 for SPtr\n3 for Dbscan\nAnother actions:\nEnter 4 to see the instruction\nEnter 5 to show final field\nEnter 6 to write field to plot file\nEnter 7 to finish finding clusters\n";
     cout << instruction;
     int choice = enter_alg_name();
     size_t cluster_min_size;
     double EPS;
-    while (choice != 6) {
+    while (choice != 7) {
         switch (choice) {
             case 1: {
                 main_field.set_label(0);
@@ -326,7 +315,8 @@ void user_interface::find() {
                 main_field.show_field();
                 break;
             }
-            case 6: {
+            case 6 : {
+                make_plot_file();
                 break;
             }
             default: {
@@ -338,4 +328,25 @@ void user_interface::find() {
         choice = enter_alg_name();
     }
 
+}
+
+void user_interface::make_plot_file() {
+    vector<point> main_field_points = main_field.get_cloud_arr();
+    int color_count = main_field_points[main_field_points.size() - 1].get_label();
+
+    vector<int> colors(color_count - 4);
+    srand(time(nullptr));
+    for (int& i : colors) {
+        i = abs(65536 * rand() + 256 * rand() + rand());
+    }
+
+    cout << "enter file's name to write points with colors\n";
+    string filename;
+    cin >> filename;
+    ofstream fs(filename);
+    fs.exceptions(std::ifstream::failbit);
+
+    for (const point& i : main_field_points) {
+        fs << i.get_x() << " " << i.get_y() << " " << colors[i.get_label() - 5] << endl;
+    }
 }

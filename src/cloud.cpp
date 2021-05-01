@@ -17,7 +17,7 @@ vector <double> cloud::create_norm(int number_of_points, double minval, double m
     }
     auto seed = chrono::steady_clock::now().time_since_epoch().count();
     default_random_engine e(seed);
-    normal_distribution<> rng_machine((maxval - minval) / 2, (maxval - minval) / 12);
+    normal_distribution<> rng_machine((maxval + minval) / 2, (maxval - minval) / 12);
     for (int i = 0; i < number_of_points; ++i) {
         normal_array[i] = rng_machine(e);
     }

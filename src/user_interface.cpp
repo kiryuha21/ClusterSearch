@@ -10,9 +10,18 @@ int user_interface::enter_alg_name() {
     return stoi(input);
 }
 
-bool user_interface::correct_positive_num_value(string value) {
+bool user_interface::correct_positive_num_value(string value, bool can_be_negative) {
+    if (!can_be_negative) {
+        for (auto i : value) {
+            if (numbers_set.find(i) == numbers_set.end()) {
+                cout << "incorrect value, enter correct positive number\n";
+                return false;
+            }
+        }
+        return true;
+    }
     for (size_t i = 0; i < value.size(); ++i) {
-        if (numbers_set.find(value[i]) == numbers_set.end()) {
+        if (numbers_set.find(value[i]) == numbers_set.end() && value[0] != '-') {
             cout << "incorrect value, enter correct positive number\n";
             return false;
         }
@@ -25,7 +34,7 @@ void user_interface::cloud_actions(cloud & cloud) {
     string input;
     cout << action_list;
     bool cloud_not_exist = cloud.is_empty();
-    int action_num = -1;
+    int action_num;
     while (true) {
         cout << "enter new action (enter 6 to see action list)\n";
         cin >> input;
@@ -47,7 +56,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     bool correct_values = false;
                     while (!correct_values) {
                         cin >> points_count_s;
-                        correct_values = correct_positive_num_value(points_count_s);
+                        correct_values = correct_positive_num_value(points_count_s, false);
                         if (stoi(points_count_s) < 1 && correct_values) {
                             correct_values = false;
                             cout << "Incorrect input, enter correct value\n";
@@ -59,7 +68,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     correct_values = false;
                     while (!correct_values) {
                         cin >> x_start_s;
-                        correct_values = correct_positive_num_value(x_start_s);
+                        correct_values = correct_positive_num_value(x_start_s, true);
                     }
                     x_start = stod(x_start_s);
 
@@ -67,7 +76,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     correct_values = false;
                     while (!correct_values) {
                         cin >> x_end_s;
-                        correct_values = correct_positive_num_value(x_end_s);
+                        correct_values = correct_positive_num_value(x_end_s, true);
                     }
                     x_end = stod(x_end_s);
 
@@ -75,7 +84,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     correct_values = false;
                     while (!correct_values) {
                         cin >> y_start_s;
-                        correct_values = correct_positive_num_value(y_start_s);
+                        correct_values = correct_positive_num_value(y_start_s, true);
                     }
                     y_start = stod(y_start_s);
 
@@ -83,7 +92,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     correct_values = false;
                     while (!correct_values) {
                         cin >> y_end_s;
-                        correct_values = correct_positive_num_value(y_end_s);
+                        correct_values = correct_positive_num_value(y_end_s, true);
                     }
                     y_end = stod(y_end_s);
 
@@ -98,7 +107,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     double dx;
                     while (!correct_values) {
                         cin >> dx_s;
-                        correct_values = correct_positive_num_value(dx_s);
+                        correct_values = correct_positive_num_value(dx_s, true);
                     }
                     dx = stod(dx_s);
                     cloud.move_x(dx);
@@ -111,7 +120,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     double dy;
                     while (!correct_values) {
                         cin >> dy_s;
-                        correct_values = correct_positive_num_value(dy_s);
+                        correct_values = correct_positive_num_value(dy_s, true);
                     }
                     dy = stod(dy_s);
                     cloud.move_y(dy);
@@ -124,7 +133,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     double angle;
                     while (!correct_values) {
                         cin >> angle_s;
-                        correct_values = correct_positive_num_value(angle_s);
+                        correct_values = correct_positive_num_value(angle_s, true);
                     }
                     angle = stod(angle_s);
                     cloud.angle_cloud_center_turn(angle);
@@ -137,7 +146,7 @@ void user_interface::cloud_actions(cloud & cloud) {
                     double angle;
                     while (!correct_values) {
                         cin >> angle_s;
-                        correct_values = correct_positive_num_value(angle_s);
+                        correct_values = correct_positive_num_value(angle_s, true);
                     }
                     angle = stod(angle_s);
                     cloud.angle_start_point_turn(angle);
@@ -149,6 +158,10 @@ void user_interface::cloud_actions(cloud & cloud) {
                 }
                 case 7: {
                     cout << "end of work with cloud";
+                    break;
+                }
+                default: {
+                    cout << "this shouldn't happen...\n";
                     break;
                 }
             }
@@ -182,13 +195,17 @@ void user_interface::create_field_manually() {
                 cout << "end of cloud input";
                 break;
             }
+            default: {
+                cout << "this shouldn't happen...\n";
+                break;
+            }
         }
         cout << "enter new action\n";
     }
 }
 
-void user_interface::create_field(const string filename) {
-    if (filename != "") {
+void user_interface::create_field(const string& filename) {
+    if (filename.empty()) {
         try {
             ifstream fs(filename);
             fs.exceptions(std::ifstream::failbit);
@@ -216,9 +233,7 @@ void user_interface::create_field(const string filename) {
             string output_file;
             cin >> output_file;
             ofstream fs(output_file);
-            if (!fs.is_open()) {
-                throw OPEN_ERR;
-            }
+            fs.exceptions(std::ifstream::failbit);
             this->main_field.write_to_file(fs);
             cout << "field successfully wrote to file\n";
             fs.close();

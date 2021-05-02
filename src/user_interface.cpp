@@ -286,7 +286,11 @@ void user_interface::find() {
                 Forel forel_find(main_field);
                 forel_find.find(EPS, cluster_min_size);
                 found_clusters = forel_find.get_final_field();
-                cout << "clusters found!\n";
+                if (!found_clusters.empty()) {
+                    cout << "clusters found!\n";
+                } else {
+                    cout << "there are no clusters found with given values\n";
+                }
                 break;
             }
             case 2: {
@@ -295,7 +299,11 @@ void user_interface::find() {
                 Sptr sptr_find(main_field);
                 sptr_find.find(EPS, cluster_min_size);
                 found_clusters = sptr_find.get_final_field();
-                cout << "clusters found!\n";
+                if (!found_clusters.empty()) {
+                    cout << "clusters found!\n";
+                } else {
+                    cout << "there are no clusters found with given values\n";
+                }
                 break;
             }
             case 3: {
@@ -304,7 +312,11 @@ void user_interface::find() {
                 Dbscan dbscan_find(main_field);
                 dbscan_find.find(EPS, cluster_min_size);
                 found_clusters = dbscan_find.get_final_field();
-                cout << "clusters found!\n";
+                if (!found_clusters.empty()) {
+                    cout << "clusters found!\n";
+                } else {
+                    cout << "there are no clusters found with given values\n";
+                }
                 break;
             }
             case 4: {
@@ -334,7 +346,7 @@ void user_interface::find() {
 
 void user_interface::make_plot_file() {
     if (found_clusters.empty()) {
-        cout << "clusters haven't been found yet\n";
+        cout << "clusters haven't been found yet or there are no clusters found with given values\n";
         return;
     }
     int color_count = found_clusters[found_clusters.size() - 1].get_label();

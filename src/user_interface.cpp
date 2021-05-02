@@ -285,7 +285,7 @@ void user_interface::find() {
                 enter_alg_variables(EPS, cluster_min_size);
                 Forel forel_find(main_field);
                 forel_find.find(EPS, cluster_min_size);
-                main_field.get_cloud_arr() = forel_find.get_final_field();
+                found_clusters = forel_find.get_final_field();
                 cout << "clusters found!\n";
                 break;
             }
@@ -294,7 +294,7 @@ void user_interface::find() {
                 main_field.set_label(0);
                 Sptr sptr_find(main_field);
                 sptr_find.find(EPS, cluster_min_size);
-                main_field.get_cloud_arr() = sptr_find.get_final_field();
+                found_clusters = sptr_find.get_final_field();
                 cout << "clusters found!\n";
                 break;
             }
@@ -303,7 +303,7 @@ void user_interface::find() {
                 main_field.set_label(0);
                 Dbscan dbscan_find(main_field);
                 dbscan_find.find(EPS, cluster_min_size);
-                main_field.get_cloud_arr() = dbscan_find.get_final_field();
+                found_clusters = dbscan_find.get_final_field();
                 cout << "clusters found!\n";
                 break;
             }
@@ -312,7 +312,9 @@ void user_interface::find() {
                 break;
             }
             case 5: {
-                main_field.show_field();
+                for (const point& i : found_clusters) {
+                    cout << i.get_x() << "\t" << i.get_y() << "\t" << i.get_label() << endl;
+                }
                 break;
             }
             case 6 : {
@@ -331,8 +333,11 @@ void user_interface::find() {
 }
 
 void user_interface::make_plot_file() {
-    vector<point> main_field_points = main_field.get_cloud_arr();
-    int color_count = main_field_points[main_field_points.size() - 1].get_label();
+    if (found_clusters.empty()) {
+        cout << "clusters haven't been found yet\n";
+        return;
+    }
+    int color_count = found_clusters[found_clusters.size() - 1].get_label();
 
     vector<int> colors(color_count - 4);
     srand(time(nullptr));
@@ -346,7 +351,7 @@ void user_interface::make_plot_file() {
     ofstream fs(filename);
     fs.exceptions(std::ifstream::failbit);
 
-    for (const point& i : main_field_points) {
+    for (const point& i : found_clusters) {
         fs << i.get_x() << " " << i.get_y() << " " << colors[i.get_label() - 5] << endl;
     }
     fs.close();

@@ -15,8 +15,6 @@ public:
 
     explicit Dbscan(field& field);
 
-    void assign_field(field& field);
-
     vector<point>& get_final_field();
 
     void find(double EPS, int cluster_min_size);

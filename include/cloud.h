@@ -11,8 +11,6 @@ private:
 public:
     explicit cloud();
 
-    void set_label(int lb);
-
     void fill_cloud(int points_count, double x_start, double x_end, double y_start, double y_end);
 
     void move_x(double delta_x);
@@ -24,10 +22,6 @@ public:
     void angle_start_point_turn(double angle);
 
     vector <point> get_cloud();
-
-    size_t get_cloud_data_size();
-
-    void show_cloud();
 
     bool is_empty();
 };

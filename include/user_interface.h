@@ -11,6 +11,7 @@ class user_interface
 {
 private:
     field main_field;
+    vector <point> found_clusters;
     const set <int> numbers_set = { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46 };
     static int enter_alg_name();
     static void enter_alg_variables(double& EPS, size_t& cluster_min_size);

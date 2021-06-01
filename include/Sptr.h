@@ -1,17 +1,16 @@
 #pragma once
 
 #include "field.h"
-
 #include <limits>
 
 class Sptr {
 private:
     vector<point> field_for_search;
     vector<point> final_field;
-    vector<point> temp_cluster;
     int label_for_marking = 5;
     void find_cluster(const point& start_point, double EPS);
-    void mark_cluster(vector<point>& cluster) const;
+    void mark_and_push(bool is_cluster);
+    int check_amount();
 public:
     Sptr() = default;
 

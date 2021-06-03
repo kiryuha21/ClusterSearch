@@ -1,6 +1,6 @@
 #include "../include/point.h"
 
-point::point() : x_coord(0), y_coord(0), label(0) {} // default contructor
+point::point() : x_coord(0), y_coord(0), label(0) {} // default constructor
 
 point::point(double x, double y) : x_coord(x), y_coord(y), label(0) {	} // Initialize fields with passed parameters
 

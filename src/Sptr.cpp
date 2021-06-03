@@ -6,7 +6,7 @@ void Sptr::find(const double EPS, const size_t cluster_min_size) {
     for (point& i : field_for_search) {
         if (i.get_label() == 0) {
             i.set_label(1);
-            find_cluster(i, EPS);  // recursive function to fill temp cluster
+            find_cluster(i, EPS);  // recursive function to mark points from cluster with "1"
             bool is_cluster = check_amount() > cluster_min_size;
             mark_and_push(is_cluster);
         }

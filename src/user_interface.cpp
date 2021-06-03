@@ -12,7 +12,7 @@ int user_interface::enter_alg_name() {
 
 bool user_interface::correct_positive_num_value(string value, bool can_be_negative) {
     if (!can_be_negative) {
-        for (auto i : value) {
+        for (auto& i : value) {
             if (numbers_set.find(i) == numbers_set.end()) {
                 cout << "incorrect value, enter correct positive number\n";
                 return false;
@@ -39,7 +39,7 @@ void user_interface::cloud_actions(cloud & cloud) {
         cout << "enter new action (enter 6 to see action list)\n";
         cin >> input;
         action_num = stoi(input);
-        if (action_num < 1 or action_num > 7 or input.size() != 1 or (cloud_not_exist and action_num != 1 and action_num != 7)) {
+        if (action_num < 1 || action_num > 7 || input.size() != 1 || (cloud_not_exist && action_num != 1 && action_num != 7)) {
             cout << "Incorrect input, enter correct value\n";
             continue;
         }

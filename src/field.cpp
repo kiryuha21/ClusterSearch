@@ -8,9 +8,7 @@ field::field()
 void field::add_cloud(cloud& to_add) {
     vector<point> temp = to_add.get_cloud();
     cloud_arr.reserve(cloud_arr.size() + temp.size());
-    for (const point& i : temp) {
-        cloud_arr.push_back(i);
-    }
+    cloud_arr.insert(cloud_arr.end(), temp.begin(), temp.end());
 }
 
 void field::show_field() {

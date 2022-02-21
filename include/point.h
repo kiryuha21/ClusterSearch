@@ -9,6 +9,7 @@
 #include <random>
 #include <queue>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 

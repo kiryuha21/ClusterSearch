@@ -29,9 +29,10 @@ vector<point> field::get_cloud_copy() {
 }
 
 void field::set_label(const int label) {
-    for (point i : cloud_arr) {
+    for (point& i : cloud_arr) {
         i.set_label(label);
     }
+    //transform(cloud_arr.begin(), cloud_arr.end(), cloud_arr.begin(), [label](point& i) { i.set_label(label); });
 }
 
 void field::read_from_file(ifstream& fs) {
@@ -40,8 +41,7 @@ void field::read_from_file(ifstream& fs) {
     int label;
     while (!fs.eof()) {
         fs >> x >> y >> label;
-        point temp_point(x, y, label);
-        temp.push_back(temp_point);
+        temp.emplace_back(x, y, label);
     }
     field temp_field;
     this->cloud_arr = temp;

@@ -37,12 +37,14 @@ void cloud::move_x(const double delta_x) {
     for (point& i : cloud_data) {
         i.add_x(delta_x);
     }
+    //transform(cloud_data.begin(), cloud_data.end(), cloud_data.begin(), [delta_x](point& i) { i.add_x(delta_x); });
 }
 
 void cloud::move_y(const double delta_y) {
     for (point& i : cloud_data) {
         i.add_y(delta_y);
     }
+    //transform(cloud_data.begin(), cloud_data.end(), cloud_data.begin(), [delta_y](point& i) { i.add_y(delta_y); });
 }
 
 void cloud::angle_cloud_center_turn(double angle) {
@@ -50,10 +52,8 @@ void cloud::angle_cloud_center_turn(double angle) {
     double calc_cos = cos(angle);
     double calc_sin = sin(angle);
     for (point& i : cloud_data) {
-        double new_x = x_center + calc_cos * (i.get_x() - x_center) - calc_sin * (i.get_y() - y_center);
-        double new_y = y_center + calc_sin * (i.get_x() - x_center) + calc_cos * (i.get_y() - y_center);
-        i.set_x(new_x);
-        i.set_y(new_y);
+        i.set_x(x_center + calc_cos * (i.get_x() - x_center) - calc_sin * (i.get_y() - y_center));
+        i.set_y(y_center + calc_sin * (i.get_x() - x_center) + calc_cos * (i.get_y() - y_center));
     }
 }
 
@@ -62,10 +62,8 @@ void cloud::angle_start_point_turn(double angle) {
     double calc_cos = cos(angle);
     double calc_sin = sin(angle);
     for (point& i : cloud_data) {
-        double new_y = calc_cos * (i.get_x()) - calc_sin * (i.get_y());
-        double new_x = calc_sin * (i.get_x()) + calc_cos * (i.get_y());
-        i.set_x(new_x);
-        i.set_y(new_y);
+        i.set_x(calc_sin * (i.get_x()) + calc_cos * (i.get_y()));
+        i.set_y(calc_cos * (i.get_x()) - calc_sin * (i.get_y()));
     }
     double new_x = calc_cos * x_center - calc_sin * y_center;
     double new_y = calc_sin * x_center + calc_cos * y_center;
